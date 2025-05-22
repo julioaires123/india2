@@ -1,69 +1,71 @@
-setInterval(function relog() { 
-    let rel = document.getElementById('relogio01');
-    let data = new Date();
-    
-    // Adiciona 23 segundos
-    data.setSeconds(data.getSeconds() + 18);
-    
-    // Determina o horário de verão na França
-    let ano = data.getUTCFullYear();
-    let inicioVerao = new Date(ano, 2, 31); // Último domingo de março
-    while (inicioVerao.getDay() !== 0) inicioVerao.setDate(inicioVerao.getDate() - 1);
-    let fimVerao = new Date(ano, 9, 31); // Último domingo de outubro
-    while (fimVerao.getDay() !== 0) fimVerao.setDate(fimVerao.getDate() - 1);
-    
-    let fusoHorario = (data >= inicioVerao && data < fimVerao) ? 3 : 2; // UTC+3 no horário de verão, UTC+2 no padrão
-    data.setUTCHours(data.getUTCHours() + fusoHorario - 1); // Redução de 1 hora
-    
-    let h = data.getUTCHours().toString().padStart(2, '0');
-    let m = data.getUTCMinutes().toString().padStart(2, '0');
-    let s = data.getUTCSeconds().toString().padStart(2, '0');
-    
-    rel.innerHTML = `${h}:${m}:${s}`;
-}, 1000);
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Relógio e Data em Hindi (Índia)</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif, Arial;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 2rem;
+        }
+        #relogio01, #date {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
 
-// Exibição da data em francês
-function exibirDataAtualizada() {
-    let meses = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-    let semanas = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-    
-    let data = new Date();
-    // Adiciona 23 segundos
-    data.setSeconds(data.getSeconds() + 18);
-    
-    let ano = data.getUTCFullYear();
-    let inicioVerao = new Date(ano, 2, 31);
-    while (inicioVerao.getDay() !== 0) inicioVerao.setDate(inicioVerao.getDate() - 1);
-    let fimVerao = new Date(ano, 9, 31);
-    while (fimVerao.getDay() !== 0) fimVerao.setDate(fimVerao.getDate() - 1);
-    
-    let fusoHorario = (data >= inicioVerao && data < fimVerao) ? 3 : 2;
-    data.setUTCHours(data.getUTCHours() + fusoHorario - 1); // Redução de 1 hora
-    
-    document.getElementById("date").innerHTML = `${semanas[data.getUTCDay()]}, ${data.getUTCDate()} ${meses[data.getUTCMonth()]}, ${data.getUTCFullYear()}`;
-}
+    <h1>भारत का समय और दिनांक</h1>
 
-// Atualiza a data à meia-noite na França
-function atualizarData() {
-    let data = new Date();
-    // Adiciona 23 segundos
-    data.setSeconds(data.getSeconds() + 18);
-    
-    let ano = data.getUTCFullYear();
-    let inicioVerao = new Date(ano, 2, 31);
-    while (inicioVerao.getDay() !== 0) inicioVerao.setDate(inicioVerao.getDate() - 1);
-    let fimVerao = new Date(ano, 9, 31);
-    while (fimVerao.getDay() !== 0) fimVerao.setDate(fimVerao.getDate() - 1);
-    
-    let fusoHorario = (data >= inicioVerao && data < fimVerao) ? 3 : 2;
-    data.setUTCHours(data.getUTCHours() + fusoHorario - 1); // Redução de 1 hora
-    
-    if (data.getUTCHours() === 0 && data.getUTCMinutes() === 0 && data.getUTCSeconds() === 0) {
-        exibirDataAtualizada();
-    }
-    setTimeout(atualizarData, 1000);
-}
+    <div id="relogio01"></div>
+    <div id="date"></div>
 
-// Inicializa a data e a atualização automática
-exibirDataAtualizada();
-atualizarData();
+    <script>
+        // Converte dígitos arábicos para devanagari
+        function toHindiDigits(numStr) {
+            const hindiDigits = ["०","१","२","३","४","५","६","७","८","९"];
+            return numStr.replace(/\d/g, d => hindiDigits[d]);
+        }
+
+        // Meses e dias da semana em Hindi
+        const meses = ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+        const semanas = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
+
+        function atualizarRelogioData() {
+            let agora = new Date();
+
+            // Ajusta para o horário da Índia (UTC+5:30)
+            let offsetIST = 5.5 * 60; // minutos
+            agora = new Date(agora.getTime() + offsetIST * 60 * 1000);
+
+            // Hora, minuto, segundo com 2 dígitos
+            let h = agora.getUTCHours().toString().padStart(2, '0');
+            let m = agora.getUTCMinutes().toString().padStart(2, '0');
+            let s = agora.getUTCSeconds().toString().padStart(2, '0');
+
+            // Converte para dígitos Hindi
+            h = toHindiDigits(h);
+            m = toHindiDigits(m);
+            s = toHindiDigits(s);
+
+            document.getElementById('relogio01').textContent = `${h}:${m}:${s}`;
+
+            // Dia da semana, dia, mês e ano
+            let diaSemana = semanas[agora.getUTCDay()];
+            let dia = toHindiDigits(agora.getUTCDate().toString());
+            let mes = meses[agora.getUTCMonth()];
+            let ano = toHindiDigits(agora.getUTCFullYear().toString());
+
+            document.getElementById('date').textContent = `${diaSemana}, ${dia} ${mes}, ${ano}`;
+        }
+
+        // Atualiza a cada segundo
+        setInterval(atualizarRelogioData, 1000);
+        atualizarRelogioData(); // Chamada inicial imediata
+    </script>
+</body>
+</html>
