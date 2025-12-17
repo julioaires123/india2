@@ -1,4 +1,35 @@
 // ===============================
+// CONTAGEM REGRESSIVA
+// ===============================
+function startCountdown(targetDate, els) {
+  setInterval(() => {
+    const now = getBrasiliaDate();
+    let diff = Math.floor((targetDate - now) / 1000);
+    if (diff < 0) diff = 0;
+
+    els.days.textContent = String(Math.floor(diff / 86400)).padStart(2,"0");
+    els.hours.textContent = String(Math.floor(diff % 86400 / 3600)).padStart(2,"0");
+    els.minutes.textContent = String(Math.floor(diff % 3600 / 60)).padStart(2,"0");
+    els.seconds.textContent = String(diff % 60).padStart(2,"0");
+  }, 1000);
+}
+
+// Datas fixas Brasília
+startCountdown(new Date("2026-01-01T00:00:00-03:00"), {
+  days: document.querySelector(".ny-days"),
+  hours: document.querySelector(".ny-hours"),
+  minutes: document.querySelector(".ny-minutes"),
+  seconds: document.querySelector(".ny-seconds"),
+});
+
+startCountdown(new Date("2025-12-25T00:00:00-03:00"), {
+  days: document.querySelector(".x-days"),
+  hours: document.querySelector(".x-hours"),
+  minutes: document.querySelector(".x-minutes"),
+  seconds: document.querySelector(".x-seconds"),
+});
+
+// ===============================
 // HORÁRIO DE BRASÍLIA
 // ===============================
 function getBrasiliaDate() {
@@ -43,33 +74,3 @@ function atualizarData() {
 }
 setInterval(atualizarData, 1000);
 
-// ===============================
-// CONTAGEM REGRESSIVA
-// ===============================
-function startCountdown(targetDate, els) {
-  setInterval(() => {
-    const now = getBrasiliaDate();
-    let diff = Math.floor((targetDate - now) / 1000);
-    if (diff < 0) diff = 0;
-
-    els.days.textContent = String(Math.floor(diff / 86400)).padStart(2,"0");
-    els.hours.textContent = String(Math.floor(diff % 86400 / 3600)).padStart(2,"0");
-    els.minutes.textContent = String(Math.floor(diff % 3600 / 60)).padStart(2,"0");
-    els.seconds.textContent = String(diff % 60).padStart(2,"0");
-  }, 1000);
-}
-
-// Datas fixas Brasília
-startCountdown(new Date("2026-01-01T00:00:00-03:00"), {
-  days: document.querySelector(".ny-days"),
-  hours: document.querySelector(".ny-hours"),
-  minutes: document.querySelector(".ny-minutes"),
-  seconds: document.querySelector(".ny-seconds"),
-});
-
-startCountdown(new Date("2025-12-25T00:00:00-03:00"), {
-  days: document.querySelector(".x-days"),
-  hours: document.querySelector(".x-hours"),
-  minutes: document.querySelector(".x-minutes"),
-  seconds: document.querySelector(".x-seconds"),
-});
