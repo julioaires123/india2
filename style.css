@@ -1,46 +1,47 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 body {
-    display: flex;
-    flex-direction: column;
+    background-color:black;
+    background-repeat: no-repeat;
+    background-size: 100%;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #000;
-    color: #0044ff;
-    font-family: 'Noto Sans Devanagari', Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
+    font-family: 'Poppins';
 }
 
-h1 {
-    font-size: 3rem;
-    margin-bottom: 40px;
+h1{
+color: white;
+font-size: 110px;
+text-align: center;
+margin-top: 13rem;
 }
 
-#relogio01 {
-    font-size: 8rem;
-    margin-bottom: 20px;
-    font-weight: bold;
+.feliz
+{
+  color: white;
+  font-size: 110px;
+  text-align: center;
+  margin-top: 8rem;
+}
+.countdown-container span{
+  text-align: center;
+  font-size: 90px;
+  padding: 3rem;
 }
 
-#date {
-    font-size: 3rem;
-    font-weight: 600;
+.timer {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@media (max-width: 600px) {
-    #relogio01 {
-        font-size: 5rem;
-    }
-    #date {
-        font-size: 2rem;
-    }
-    h1 {
-        font-size: 2rem;
-    }
+.time {
+  margin-top: 3rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 10rem;
+  color: white;
+  background-color: black;
 }
