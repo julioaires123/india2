@@ -1,34 +1,44 @@
-// Natal: 25 de dezembro às 00:00
+// Datas ISO (padrão corporativo, zero bug)
+const newYearDate = new Date("2026-01-01T00:00:00");
 const christmasDate = new Date("2025-12-25T00:00:00");
 
-// Seletores
-const daysEl = document.querySelector('.Dias');
-const hourEl = document.querySelector('.Horas');
-const minuteEl = document.querySelector('.Minutos');
-const secondEl = document.querySelector('.Segundos');
+function startCountdown(targetDate, elements) {
+  function update() {
+    const now = new Date();
+    let totalSeconds = Math.floor((targetDate - now) / 1000);
+    if (totalSeconds < 0) totalSeconds = 0;
 
-function timeCountDown() {
-  const now = new Date();
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-  let totalSeconds = Math.floor((christmasDate - now) / 1000);
+    elements.days.textContent = format(days);
+    elements.hours.textContent = format(hours);
+    elements.minutes.textContent = format(minutes);
+    elements.seconds.textContent = format(seconds);
+  }
 
-  // Trava para não ficar negativo
-  if (totalSeconds < 0) totalSeconds = 0;
-
-  const dias = Math.floor(totalSeconds / (3600 * 24));
-  const horas = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-  const minutos = Math.floor((totalSeconds % 3600) / 60);
-  const segundos = totalSeconds % 60;
-
-  daysEl.textContent = format(dias);
-  hourEl.textContent = format(horas);
-  minuteEl.textContent = format(minutos);
-  secondEl.textContent = format(segundos);
+  update();
+  setInterval(update, 1000);
 }
 
 function format(value) {
   return value < 10 ? `0${value}` : value;
 }
 
-timeCountDown();
-setInterval(timeCountDown, 1000);
+// Ano Novo
+startCountdown(newYearDate, {
+  days: document.querySelector(".ny-days"),
+  hours: document.querySelector(".ny-hours"),
+  minutes: document.querySelector(".ny-minutes"),
+  seconds: document.querySelector(".ny-seconds"),
+});
+
+// Natal
+startCountdown(christmasDate, {
+  days: document.querySelector(".x-days"),
+  hours: document.querySelector(".x-hours"),
+  minutes: document.querySelector(".x-minutes"),
+  seconds: document.querySelector(".x-seconds"),
+});
