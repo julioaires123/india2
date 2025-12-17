@@ -33,7 +33,8 @@ function updateClockBrasilia() {
     year: "numeric"
   });
 
-  document.getElementById("clock").textContent = `Horário de Brasília: ${time}`;
+  document.getElementById("clock").textContent = `Horário de Brasília:` 
+  `${time}`;
   document.getElementById("date").textContent = date;
 }
 
@@ -45,3 +46,4 @@ function updateAll() {
 
 updateAll();
 setInterval(updateAll, 1000);
+
