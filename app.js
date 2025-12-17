@@ -1,5 +1,5 @@
 // ================= CONFIGURAÇÕES CENTRAIS =================
-const YOUTUBE_DELAY_SEGUNDOS = 19; // ajuste fino do delay da live
+const YOUTUBE_DELAY_SEGUNDOS = 18; // ajuste fino do delay da live
 
 const EVENTOS = {
   natal: new Date("12/25/2025 00:00:00"),
@@ -64,3 +64,4 @@ function atualizarTudo() {
 
 atualizarTudo();
 setInterval(atualizarTudo, 1000);
+
