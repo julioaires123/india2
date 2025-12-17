@@ -1,38 +1,34 @@
-// Data do Natal (25 de dezembro do ano atual)
-const christmas = "12/25/2025";
+// Natal: 25 de dezembro às 00:00
+const christmasDate = new Date("2025-12-25T00:00:00");
 
-// Selecionando os elementos
+// Seletores
 const daysEl = document.querySelector('.Dias');
 const hourEl = document.querySelector('.Horas');
 const minuteEl = document.querySelector('.Minutos');
 const secondEl = document.querySelector('.Segundos');
 
-// Função principal
 function timeCountDown() {
-  const nowDate = new Date();
-  const christmasDate = new Date(christmas);
+  const now = new Date();
 
-  let totalSeconds = Math.floor((christmasDate - nowDate) / 1000);
+  let totalSeconds = Math.floor((christmasDate - now) / 1000);
 
-  // Evita valores negativos após o evento
+  // Trava para não ficar negativo
   if (totalSeconds < 0) totalSeconds = 0;
 
-  const Dias = Math.floor(totalSeconds / 3600 / 24);
-  const Horas = Math.floor((totalSeconds / 3600) % 24);
-  const Minutos = Math.floor((totalSeconds / 60) % 60);
-  const Segundos = totalSeconds % 60;
+  const dias = Math.floor(totalSeconds / (3600 * 24));
+  const horas = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+  const minutos = Math.floor((totalSeconds % 3600) / 60);
+  const segundos = totalSeconds % 60;
 
-  daysEl.textContent = formatTime(Dias);
-  hourEl.textContent = formatTime(Horas);
-  minuteEl.textContent = formatTime(Minutos);
-  secondEl.textContent = formatTime(Segundos);
+  daysEl.textContent = format(dias);
+  hourEl.textContent = format(horas);
+  minuteEl.textContent = format(minutos);
+  secondEl.textContent = format(segundos);
 }
 
-// Formatação padrão enterprise (2 dígitos)
-function formatTime(time) {
-  return time < 10 ? `0${time}` : time;
+function format(value) {
+  return value < 10 ? `0${value}` : value;
 }
 
-// Inicialização
 timeCountDown();
 setInterval(timeCountDown, 1000);
