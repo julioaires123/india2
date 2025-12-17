@@ -1,34 +1,40 @@
-const toHindiDigits = (numStr) => {
-    const digitsMap = ["०","१","२","३","४","५","६","७","८","९"];
-    return numStr.replace(/\d/g, d => digitsMap[d]);
-};
+const newYear = "01/01/2026"; // Data do Ano Novo
 
-const meses = ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
-const diasSemana = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
+// Selecionando os elementos
+const daysEl = document.querySelector('.Dias');
+const hourEl = document.querySelector('.Horas');
+const minuteEl = document.querySelector('.Minutos');
+const secondEl = document.querySelector('.Segundos');
 
-function atualizarRelogioData() {
-    const agoraIST = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
-    const dataIST = new Date(agoraIST);
+// Função que calcula e atualiza o tempo restante
+function timeCountDown() {
+  const nowDate = new Date(); // Hora atual
+  const newYearDate = new Date(newYear); // Hora do Ano Novo
+  
+  // Diferença total em segundos
+  let totalSeconds = Math.floor((newYearDate - nowDate) / 1000);
+  
+  // Incrementando 9 segundos
+  totalSeconds -= 13;
 
-    // Hora, minuto e segundo
-    let h = dataIST.getHours().toString().padStart(2, '0');
-    let m = dataIST.getMinutes().toString().padStart(2, '0');
-    let s = dataIST.getSeconds().toString().padStart(2, '0');
+  // Cálculos
+  const Dias = Math.floor(totalSeconds / 3600 / 24);
+  const Horas = Math.floor((totalSeconds / 3600) % 24);
+  const Minutos = Math.floor((totalSeconds / 60) % 60);
+  const Segundos = totalSeconds % 60;
 
-    h = toHindiDigits(h);
-    m = toHindiDigits(m);
-    s = toHindiDigits(s);
-
-    document.getElementById('relogio01').textContent = `${h}:${m}:${s}`;
-
-    // Data
-    let diaSemana = diasSemana[dataIST.getDay()];
-    let dia = toHindiDigits(dataIST.getDate().toString());
-    let mes = meses[dataIST.getMonth()];
-    let ano = toHindiDigits(dataIST.getFullYear().toString());
-
-    document.getElementById('date').textContent = `${diaSemana}, ${dia} ${mes}, ${ano}`;
+  // Atualizando os valores na tela
+  daysEl.textContent = formatTime(Dias);
+  hourEl.textContent = formatTime(Horas);
+  minuteEl.textContent = formatTime(Minutos);
+  secondEl.textContent = formatTime(Segundos);
 }
 
-setInterval(atualizarRelogioData, 1000);
-atualizarRelogioData();
+// Formatar os valores para exibir sempre dois dígitos
+function formatTime(time) {
+  return time < 10 ? `0${time}` : time;
+}
+
+// Atualizar o contador a cada segundo
+timeCountDown();
+setInterval(timeCountDown, 1000);
