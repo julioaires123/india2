@@ -3,7 +3,7 @@ const YOUTUBE_DELAY_SEGUNDOS = 18; // ajuste fino do delay da live
 
 const EVENTOS = {
   natal: new Date("12/25/2026 00:00:00"),
-  ano: new Date("01/01/2026 00:00:00")
+  ano: new Date("01/01/2027 00:00:00")
 };
 
 // ================= FUNÇÕES UTILITÁRIAS =================
@@ -64,5 +64,6 @@ function atualizarTudo() {
 
 atualizarTudo();
 setInterval(atualizarTudo, 1000);
+
 
 
